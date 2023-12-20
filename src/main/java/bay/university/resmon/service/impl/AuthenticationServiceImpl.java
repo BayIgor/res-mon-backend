@@ -1,6 +1,6 @@
 package bay.university.resmon.service.impl;
 
-import bay.university.resmon.dto.SignUpRequest;
+import bay.university.resmon.dto.auth.SignUpRequest;
 import bay.university.resmon.dto.UserDto;
 import bay.university.resmon.model.User;
 import bay.university.resmon.repository.UserRepository;

@@ -1,4 +1,4 @@
-package bay.university.resmon.dto;
+package bay.university.resmon.dto.auth;
 
 public class PasswordForgotRequest {
     private String email;

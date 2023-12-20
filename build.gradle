@@ -27,11 +27,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.apache.commons:commons-lang3'
     implementation 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'org.mongodb:mongodb-driver-sync'
+    implementation 'org.apache.poi:poi-ooxml:5.2.5'
+    implementation 'org.mongodb:mongodb-driver-sync'
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
     implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+    implementation 'com.google.code.gson:gson'
 
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

@@ -1,7 +1,7 @@
 package bay.university.resmon.controller;
 
-import bay.university.resmon.dto.PasswordForgotRequest;
-import bay.university.resmon.dto.PasswordResetRequest;
+import bay.university.resmon.dto.auth.PasswordForgotRequest;
+import bay.university.resmon.dto.auth.PasswordResetRequest;
 import bay.university.resmon.service.EmailService;
 import bay.university.resmon.service.PasswordResetService;
 import bay.university.resmon.service.impl.UserDetailsServiceImpl;
@@ -10,6 +10,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,14 +51,13 @@ public class ForgotPasswordController {
 
             emailService.sendEmail(passwordResetRequest.getEmail(), "Сброс пароля", emailMessage);
             return "Сообщение на почту успешно отправлено";
-        }
-        catch (UsernameNotFoundException ex){
+        } catch (UsernameNotFoundException ex) {
             return "Такой почты не существует в нашей базе";
         }
     }
 
     @PostMapping("/reset_password")
-    public String resetPassword(@RequestBody PasswordResetRequest passwordResetRequest){
+    public ResponseEntity resetPassword(@RequestBody PasswordResetRequest passwordResetRequest) {
 
         String jwtToken = passwordResetRequest.getJwt();
         String secretKey = environment.getProperty("app.jwt.secret");
@@ -71,9 +72,9 @@ public class ForgotPasswordController {
 
             passwordResetService.updateUserPassword(username, passwordResetRequest.getPassword());
 
-            return "Пароль успешно изменён";
+            return ResponseEntity.status(HttpStatus.OK).body("Пароль успешно изменён");
         } catch (Exception e) {
-           return "Не верная ссылка, получите новую";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Неверная ссылка для сброса пароля, получите новую");
         }
     }
 }
